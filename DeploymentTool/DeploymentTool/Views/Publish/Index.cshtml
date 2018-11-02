@@ -1,0 +1,127 @@
+﻿@model DeploymentTool.Models.MultiSelectProjects
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h2>Projects To Be Deployed</h2>
+
+
+<form asp-action="Index" method="get">
+	<div class="container">
+		<div class="form-actions no-color">
+			<div class="form-group row">
+				<div class="col-xs-2">
+					<label for="ex1">Filter by project name</label>
+					<input type="text" id="ex1" name="SearchString" value="@ViewData["currentFilter"]" class="form-control" />
+				</div>
+				<div class="col-xs-2">
+					<label for="ex2">Filter by project type</label>
+					<select name="target" id="ex2" size="1" value="@ViewData["Framework"]" class="form-control">
+						<option value="0">All Types</option>
+						<option value="@Convert.ToInt32(TargetFramework.DotNetCore)">ASP.Net Core</option>
+						<option value="@Convert.ToInt32(TargetFramework.DotNetStandard)">ASP.Net Standard</option>
+					</select>
+				</div>
+			</div>
+			<input type="submit" value="Filter" class="btn btn-default" /> |
+			<a asp-action="Index">Back to Full List</a>
+		</div>
+	</div>
+</form>
+
+<br />
+<br />
+
+@using (Html.BeginForm("actionName", "controllerName", FormMethod.Post, new { id = "my-form" }))
+
+{
+	<div class="col-xs-2">
+		<select id="example-getting-started" name="projectIds[]" multiple="multiple">
+			@foreach (var project in Model.Specifications)
+			{
+				<option value="@project.Id">@project.WebsiteName</option>
+			}
+		</select>
+		<br />
+		<br />
+		<input type="button" value="Submit" id="form-submit" class="btn-default" />
+	</div>
+	<br />
+	<br />
+	<p>
+		<br />
+		<br />
+		<img src="~/images/ajax-loader.gif" id="loading-indicator" style="display:none" />
+	</p>
+	<br />
+	<br />
+	<input type="button" value="Run SQL Script" id="script-submit" class="btn-default" />
+}
+
+<!-- Include Twitter Bootstrap and jQuery: -->
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" type="text/css" />
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Initialize the plugin: -->
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#example-getting-started').multiselect();
+	});
+</script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).on('click', '#form-submit', function () {
+		$('#loading-indicator').show();
+		$('#form-submit').attr('disabled', true);
+
+		$.ajax({
+
+			url: "@Url.Action("PublishProject", "Publish")",
+
+			type: "POST",
+
+			data: $('form#my-form').serialize(),
+
+			success: function (result) {
+				$('#loading-indicator').hide();
+				$('#form-submit').attr('disabled', false);
+				console.log(result);
+				alert(result);
+			}
+		});
+
+	});
+</script>
+
+<script type="text/javascript">
+
+	$(document).on('click', '#script-submit', function () {
+
+		$.ajax({
+
+			url: "@Url.Action("RunSqlScriptAsync", "Publish")",
+
+			type: "POST",
+
+			data: $('form#my-form').serialize(),
+
+			success: function (result) {
+				console.log(result);
+				alert(result);
+			}
+		});
+
+	});
+</script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ajaxSend(function () {
+		$("form-submit").click(function () {
+			$('#loading-indicator').show();
+		});
+	});
+</script>

@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DeploymentTool/.vs
+/DeploymentTool/DeploymentTool/bin/Debug/netcoreapp2.0
+/DeploymentTool/DeploymentTool/obj
+/DeploymentTool/Publisher/bin/Debug/netcoreapp2.0
+/DeploymentTool/Publisher/obj/Debug/netcoreapp2.0
+/DeploymentTool/Publisher/obj
+/DeploymentTool/DeploymentTool/Properties/PublishProfiles
+/DeploymentTool/DBContextAndEntities/bin/Debug/netcoreapp2.0
+/DeploymentTool/DBContextAndEntities/obj
+/DeploymentTool/Data/bin/Debug/netcoreapp2.0
+/DeploymentTool/Data/obj
+/DeploymentTool/Data/bin/Release/netcoreapp2.0
+/DeploymentTool/DeploymentTool/bin/Release/netcoreapp2.0
+/DeploymentTool/Publisher/bin/Release/netcoreapp2.0
+/DeploymentTool/DeploymentTool/bin/Any CPU/Release/netcoreapp2.0

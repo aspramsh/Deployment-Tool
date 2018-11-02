@@ -1,0 +1,63 @@
+﻿@model DeploymentTool.Models.DeploymentSpecificationModel
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Deployment Specification</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ProjectPath" class="control-label"></label>
+                <input asp-for="ProjectPath" class="form-control" />
+                <span asp-validation-for="ProjectPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppPoolName" class="control-label"></label>
+                <input asp-for="AppPoolName" class="form-control" />
+                <span asp-validation-for="AppPoolName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeploymentPath" class="control-label"></label>
+                <input asp-for="DeploymentPath" class="form-control" />
+                <span asp-validation-for="DeploymentPath" class="text-danger"></span>
+            </div>
+	        <div class="form-group">
+		        <label asp-for="ProjectName" class="control-label"></label>
+		        <input asp-for="ProjectName" class="form-control" />
+		        <span asp-validation-for="ProjectName" class="text-danger"></span>
+	        </div>
+	        <div class="form-group">
+		        <label asp-for="WebsiteName" class="control-label"></label>
+		        <input asp-for="WebsiteName" class="form-control" />
+		        <span asp-validation-for="WebsiteName" class="text-danger"></span>
+	        </div>
+			<div class="form-group">
+				<label asp-for="BranchName" class="control-label"></label>
+				<input asp-for="BranchName" class="form-control" />
+				<span asp-validation-for="BranchName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Framework" class="control-label"></label>
+				<select asp-for="Framework" asp-items="Html.GetEnumSelectList<DeploymentTool.Models.TargetFramework>()" class="form-control"></select>
+				<span asp-validation-for="Framework" class="text-danger"></span>
+			</div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

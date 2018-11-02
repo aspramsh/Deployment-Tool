@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DeploymentTool.Models.DeploymentSpecificationModel>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h2>Projects To Be Deployed</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+	<div class="container">
+		<div class="form-actions no-color">
+			<div class="form-group row">
+				<div class="col-xs-2">
+					<label for="ex1">Filter by project name</label>
+					<input type="text" id ="ex1" name="SearchString" value="@ViewData["currentFilter"]" class="form-control" />
+</div>
+				<div class="col-xs-2">
+					<label for="ex2">Filter by project type</label>
+					<select name="target" id="ex2" size="1" value="@ViewData["Framework"]" class="form-control">
+						<option value ="0">All Types</option>
+						<option value="@Convert.ToInt32(TargetFramework.DotNetCore)">ASP.Net Core</option>
+						<option value="@Convert.ToInt32(TargetFramework.DotNetStandard)">ASP.Net Standard</option>
+					</select>
+					</div>
+				</div>
+			<input type="submit" value="Filter" class="btn btn-default" /> |
+			<a asp-action="Index">Back to Full List</a>
+			</div>
+		</div>
+</form>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.ProjectPath)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.AppPoolName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.DeploymentPath)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ProjectName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.WebsiteName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.BranchName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Framework)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.ProjectPath)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.AppPoolName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DeploymentPath)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ProjectName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.WebsiteName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.BranchName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Framework)
+					</td>
+					<td>
+						<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+						<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+						<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
